@@ -1,0 +1,1543 @@
+Terminals unused in grammar
+
+   FAZER
+
+
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: comando s guardar
+
+    2 comando: abrir
+    3        | nova
+    4        | cor comando
+    5        | var comando
+    6        | error comando
+
+    7 s: s cor
+    8  | s linhas
+    9  | s ponto
+   10  | s linha
+   11  | s retangulo
+   12  | s circunf
+   13  | s circun
+   14  | s retfill
+   15  | s error
+   16  | s var
+   17  | s ciclo
+   18  | s funcao
+   19  | %empty
+
+   20 var: VAR '=' varcont ';'
+
+   21 varcont: VAR
+   22        | RAIO
+   23        | varcont '+' varcont
+   24        | varcont '-' varcont
+   25        | varcont '*' varcont
+   26        | '(' varcont ')'
+   27        | varcont '/' varcont
+   28        | RAND RAIO
+   29        | RAND VAR
+
+   30 linhas: LINHAS coordenada coordenada multiplas color ';'
+
+   31 multiplas: multiplas coordenada
+   32          | %empty
+
+   33 retangulo: RETANGULO coordenada coordenada color ';'
+   34          | RETANGULO coordenada dimensao color ';'
+
+   35 retfill: RETFILL coordenada dimensao color ';'
+   36        | RETFILL coordenada coordenada color ';'
+
+   37 circunf: CIRCUNF coordenada opcao color ';'
+
+   38 circun: CIRCUN coordenada opcao color ';'
+
+   39 linha: LINHA coordenada coordenada color ';'
+
+   40 ponto: PONTO coordenada color ';'
+
+   41 cor: COR color ';'
+
+   42 coordenada: opcao ',' opcao
+   43           | COORDENADA
+
+   44 color: opcao ':' opcao ':' opcao
+   45      | COLOR
+   46      | %empty
+
+   47 dimensao: DIMENSAO
+   48         | opcao 'x' opcao
+
+   49 opcao: VAR
+   50      | RAIO
+
+   51 funcao: FUNCAO '(' parametros ')'
+
+   52 parametros: parametros COISAS
+   53           | %empty
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO ']' s FIM PARA ';'
+
+   55 abrir: ABRIR '"' FILENAME '"' ';'
+
+   56 nova: NOVA dimensao color ';'
+
+   57 guardar: GUARDAR '"' FILENAME '"' ';'
+   58        | %empty
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'"' (34) 55 57
+'(' (40) 26 51
+')' (41) 26 51
+'*' (42) 25
+'+' (43) 23
+',' (44) 42
+'-' (45) 24
+'.' (46) 54
+'/' (47) 27
+':' (58) 44
+';' (59) 20 30 33 34 35 36 37 38 39 40 41 54 55 56 57
+'=' (61) 20
+'[' (91) 54
+']' (93) 54
+'x' (120) 48
+error (256) 6 15
+ABRIR (258) 55
+NOVA (259) 56
+LINHAS (260) 30
+PONTO (261) 40
+LINHA (262) 39
+RETANGULO (263) 33 34
+RETFILL (264) 35 36
+CIRCUN (265) 38
+CIRCUNF (266) 37
+FIM (267) 54
+GUARDAR (268) 57
+COR (269) 41
+RAND (270) 28 29
+PARA (271) 54
+EM (272) 54
+FAZER (273)
+FUNCAO (274) 51
+COISAS (275) 52
+FILENAME (276) 55 57
+DIMENSAO (277) 47
+COORDENADA (278) 43
+COLOR (279) 45
+RAIO (280) 22 28 50 54
+VAR (281) 20 21 29 49 54
+
+
+Nonterminals, with rules where they appear
+
+$accept (42)
+    on left: 0
+programa (43)
+    on left: 1, on right: 0
+comando (44)
+    on left: 2 3 4 5 6, on right: 1 4 5 6
+s (45)
+    on left: 7 8 9 10 11 12 13 14 15 16 17 18 19, on right: 1 7 8 9
+    10 11 12 13 14 15 16 17 18 54
+var (46)
+    on left: 20, on right: 5 16
+varcont (47)
+    on left: 21 22 23 24 25 26 27 28 29, on right: 20 23 24 25 26 27
+linhas (48)
+    on left: 30, on right: 8
+multiplas (49)
+    on left: 31 32, on right: 30 31
+retangulo (50)
+    on left: 33 34, on right: 11
+retfill (51)
+    on left: 35 36, on right: 14
+circunf (52)
+    on left: 37, on right: 12
+circun (53)
+    on left: 38, on right: 13
+linha (54)
+    on left: 39, on right: 10
+ponto (55)
+    on left: 40, on right: 9
+cor (56)
+    on left: 41, on right: 4 7
+coordenada (57)
+    on left: 42 43, on right: 30 31 33 34 35 36 37 38 39 40
+color (58)
+    on left: 44 45 46, on right: 30 33 34 35 36 37 38 39 40 41 56
+dimensao (59)
+    on left: 47 48, on right: 34 35 56
+opcao (60)
+    on left: 49 50, on right: 37 38 42 44 48
+funcao (61)
+    on left: 51, on right: 18
+parametros (62)
+    on left: 52 53, on right: 51 52
+ciclo (63)
+    on left: 54, on right: 17
+abrir (64)
+    on left: 55, on right: 2
+nova (65)
+    on left: 56, on right: 3
+guardar (66)
+    on left: 57 58, on right: 1
+
+
+State 0
+
+    0 $accept: . programa $end
+
+    error  shift, and go to state 1
+    ABRIR  shift, and go to state 2
+    NOVA   shift, and go to state 3
+    COR    shift, and go to state 4
+    VAR    shift, and go to state 5
+
+    programa  go to state 6
+    comando   go to state 7
+    var       go to state 8
+    cor       go to state 9
+    abrir     go to state 10
+    nova      go to state 11
+
+
+State 1
+
+    6 comando: error . comando
+
+    error  shift, and go to state 1
+    ABRIR  shift, and go to state 2
+    NOVA   shift, and go to state 3
+    COR    shift, and go to state 4
+    VAR    shift, and go to state 5
+
+    comando  go to state 12
+    var      go to state 8
+    cor      go to state 9
+    abrir    go to state 10
+    nova     go to state 11
+
+
+State 2
+
+   55 abrir: ABRIR . '"' FILENAME '"' ';'
+
+    '"'  shift, and go to state 13
+
+
+State 3
+
+   56 nova: NOVA . dimensao color ';'
+
+    DIMENSAO  shift, and go to state 14
+    RAIO      shift, and go to state 15
+    VAR       shift, and go to state 16
+
+    dimensao  go to state 17
+    opcao     go to state 18
+
+
+State 4
+
+   41 cor: COR . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 20
+    opcao  go to state 21
+
+
+State 5
+
+   20 var: VAR . '=' varcont ';'
+
+    '='  shift, and go to state 22
+
+
+State 6
+
+    0 $accept: programa . $end
+
+    $end  shift, and go to state 23
+
+
+State 7
+
+    1 programa: comando . s guardar
+
+    $default  reduce using rule 19 (s)
+
+    s  go to state 24
+
+
+State 8
+
+    5 comando: var . comando
+
+    error  shift, and go to state 1
+    ABRIR  shift, and go to state 2
+    NOVA   shift, and go to state 3
+    COR    shift, and go to state 4
+    VAR    shift, and go to state 5
+
+    comando  go to state 25
+    var      go to state 8
+    cor      go to state 9
+    abrir    go to state 10
+    nova     go to state 11
+
+
+State 9
+
+    4 comando: cor . comando
+
+    error  shift, and go to state 1
+    ABRIR  shift, and go to state 2
+    NOVA   shift, and go to state 3
+    COR    shift, and go to state 4
+    VAR    shift, and go to state 5
+
+    comando  go to state 26
+    var      go to state 8
+    cor      go to state 9
+    abrir    go to state 10
+    nova     go to state 11
+
+
+State 10
+
+    2 comando: abrir .
+
+    $default  reduce using rule 2 (comando)
+
+
+State 11
+
+    3 comando: nova .
+
+    $default  reduce using rule 3 (comando)
+
+
+State 12
+
+    6 comando: error comando .
+
+    $default  reduce using rule 6 (comando)
+
+
+State 13
+
+   55 abrir: ABRIR '"' . FILENAME '"' ';'
+
+    FILENAME  shift, and go to state 27
+
+
+State 14
+
+   47 dimensao: DIMENSAO .
+
+    $default  reduce using rule 47 (dimensao)
+
+
+State 15
+
+   50 opcao: RAIO .
+
+    $default  reduce using rule 50 (opcao)
+
+
+State 16
+
+   49 opcao: VAR .
+
+    $default  reduce using rule 49 (opcao)
+
+
+State 17
+
+   56 nova: NOVA dimensao . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 28
+    opcao  go to state 21
+
+
+State 18
+
+   48 dimensao: opcao . 'x' opcao
+
+    'x'  shift, and go to state 29
+
+
+State 19
+
+   45 color: COLOR .
+
+    $default  reduce using rule 45 (color)
+
+
+State 20
+
+   41 cor: COR color . ';'
+
+    ';'  shift, and go to state 30
+
+
+State 21
+
+   44 color: opcao . ':' opcao ':' opcao
+
+    ':'  shift, and go to state 31
+
+
+State 22
+
+   20 var: VAR '=' . varcont ';'
+
+    RAND  shift, and go to state 32
+    RAIO  shift, and go to state 33
+    VAR   shift, and go to state 34
+    '('   shift, and go to state 35
+
+    varcont  go to state 36
+
+
+State 23
+
+    0 $accept: programa $end .
+
+    $default  accept
+
+
+State 24
+
+    1 programa: comando s . guardar
+    7 s: s . cor
+    8  | s . linhas
+    9  | s . ponto
+   10  | s . linha
+   11  | s . retangulo
+   12  | s . circunf
+   13  | s . circun
+   14  | s . retfill
+   15  | s . error
+   16  | s . var
+   17  | s . ciclo
+   18  | s . funcao
+
+    error      shift, and go to state 37
+    LINHAS     shift, and go to state 38
+    PONTO      shift, and go to state 39
+    LINHA      shift, and go to state 40
+    RETANGULO  shift, and go to state 41
+    RETFILL    shift, and go to state 42
+    CIRCUN     shift, and go to state 43
+    CIRCUNF    shift, and go to state 44
+    GUARDAR    shift, and go to state 45
+    COR        shift, and go to state 4
+    PARA       shift, and go to state 46
+    FUNCAO     shift, and go to state 47
+    VAR        shift, and go to state 5
+
+    $end  reduce using rule 58 (guardar)
+
+    var        go to state 48
+    linhas     go to state 49
+    retangulo  go to state 50
+    retfill    go to state 51
+    circunf    go to state 52
+    circun     go to state 53
+    linha      go to state 54
+    ponto      go to state 55
+    cor        go to state 56
+    funcao     go to state 57
+    ciclo      go to state 58
+    guardar    go to state 59
+
+
+State 25
+
+    5 comando: var comando .
+
+    $default  reduce using rule 5 (comando)
+
+
+State 26
+
+    4 comando: cor comando .
+
+    $default  reduce using rule 4 (comando)
+
+
+State 27
+
+   55 abrir: ABRIR '"' FILENAME . '"' ';'
+
+    '"'  shift, and go to state 60
+
+
+State 28
+
+   56 nova: NOVA dimensao color . ';'
+
+    ';'  shift, and go to state 61
+
+
+State 29
+
+   48 dimensao: opcao 'x' . opcao
+
+    RAIO  shift, and go to state 15
+    VAR   shift, and go to state 16
+
+    opcao  go to state 62
+
+
+State 30
+
+   41 cor: COR color ';' .
+
+    $default  reduce using rule 41 (cor)
+
+
+State 31
+
+   44 color: opcao ':' . opcao ':' opcao
+
+    RAIO  shift, and go to state 15
+    VAR   shift, and go to state 16
+
+    opcao  go to state 63
+
+
+State 32
+
+   28 varcont: RAND . RAIO
+   29        | RAND . VAR
+
+    RAIO  shift, and go to state 64
+    VAR   shift, and go to state 65
+
+
+State 33
+
+   22 varcont: RAIO .
+
+    $default  reduce using rule 22 (varcont)
+
+
+State 34
+
+   21 varcont: VAR .
+
+    $default  reduce using rule 21 (varcont)
+
+
+State 35
+
+   26 varcont: '(' . varcont ')'
+
+    RAND  shift, and go to state 32
+    RAIO  shift, and go to state 33
+    VAR   shift, and go to state 34
+    '('   shift, and go to state 35
+
+    varcont  go to state 66
+
+
+State 36
+
+   20 var: VAR '=' varcont . ';'
+   23 varcont: varcont . '+' varcont
+   24        | varcont . '-' varcont
+   25        | varcont . '*' varcont
+   27        | varcont . '/' varcont
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+    '*'  shift, and go to state 69
+    '/'  shift, and go to state 70
+    ';'  shift, and go to state 71
+
+
+State 37
+
+   15 s: s error .
+
+    $default  reduce using rule 15 (s)
+
+
+State 38
+
+   30 linhas: LINHAS . coordenada coordenada multiplas color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 73
+    opcao       go to state 74
+
+
+State 39
+
+   40 ponto: PONTO . coordenada color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 75
+    opcao       go to state 74
+
+
+State 40
+
+   39 linha: LINHA . coordenada coordenada color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 76
+    opcao       go to state 74
+
+
+State 41
+
+   33 retangulo: RETANGULO . coordenada coordenada color ';'
+   34          | RETANGULO . coordenada dimensao color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 77
+    opcao       go to state 74
+
+
+State 42
+
+   35 retfill: RETFILL . coordenada dimensao color ';'
+   36        | RETFILL . coordenada coordenada color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 78
+    opcao       go to state 74
+
+
+State 43
+
+   38 circun: CIRCUN . coordenada opcao color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 79
+    opcao       go to state 74
+
+
+State 44
+
+   37 circunf: CIRCUNF . coordenada opcao color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 80
+    opcao       go to state 74
+
+
+State 45
+
+   57 guardar: GUARDAR . '"' FILENAME '"' ';'
+
+    '"'  shift, and go to state 81
+
+
+State 46
+
+   54 ciclo: PARA . VAR EM '[' RAIO '.' '.' RAIO ']' s FIM PARA ';'
+
+    VAR  shift, and go to state 82
+
+
+State 47
+
+   51 funcao: FUNCAO . '(' parametros ')'
+
+    '('  shift, and go to state 83
+
+
+State 48
+
+   16 s: s var .
+
+    $default  reduce using rule 16 (s)
+
+
+State 49
+
+    8 s: s linhas .
+
+    $default  reduce using rule 8 (s)
+
+
+State 50
+
+   11 s: s retangulo .
+
+    $default  reduce using rule 11 (s)
+
+
+State 51
+
+   14 s: s retfill .
+
+    $default  reduce using rule 14 (s)
+
+
+State 52
+
+   12 s: s circunf .
+
+    $default  reduce using rule 12 (s)
+
+
+State 53
+
+   13 s: s circun .
+
+    $default  reduce using rule 13 (s)
+
+
+State 54
+
+   10 s: s linha .
+
+    $default  reduce using rule 10 (s)
+
+
+State 55
+
+    9 s: s ponto .
+
+    $default  reduce using rule 9 (s)
+
+
+State 56
+
+    7 s: s cor .
+
+    $default  reduce using rule 7 (s)
+
+
+State 57
+
+   18 s: s funcao .
+
+    $default  reduce using rule 18 (s)
+
+
+State 58
+
+   17 s: s ciclo .
+
+    $default  reduce using rule 17 (s)
+
+
+State 59
+
+    1 programa: comando s guardar .
+
+    $default  reduce using rule 1 (programa)
+
+
+State 60
+
+   55 abrir: ABRIR '"' FILENAME '"' . ';'
+
+    ';'  shift, and go to state 84
+
+
+State 61
+
+   56 nova: NOVA dimensao color ';' .
+
+    $default  reduce using rule 56 (nova)
+
+
+State 62
+
+   48 dimensao: opcao 'x' opcao .
+
+    $default  reduce using rule 48 (dimensao)
+
+
+State 63
+
+   44 color: opcao ':' opcao . ':' opcao
+
+    ':'  shift, and go to state 85
+
+
+State 64
+
+   28 varcont: RAND RAIO .
+
+    $default  reduce using rule 28 (varcont)
+
+
+State 65
+
+   29 varcont: RAND VAR .
+
+    $default  reduce using rule 29 (varcont)
+
+
+State 66
+
+   23 varcont: varcont . '+' varcont
+   24        | varcont . '-' varcont
+   25        | varcont . '*' varcont
+   26        | '(' varcont . ')'
+   27        | varcont . '/' varcont
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+    '*'  shift, and go to state 69
+    '/'  shift, and go to state 70
+    ')'  shift, and go to state 86
+
+
+State 67
+
+   23 varcont: varcont '+' . varcont
+
+    RAND  shift, and go to state 32
+    RAIO  shift, and go to state 33
+    VAR   shift, and go to state 34
+    '('   shift, and go to state 35
+
+    varcont  go to state 87
+
+
+State 68
+
+   24 varcont: varcont '-' . varcont
+
+    RAND  shift, and go to state 32
+    RAIO  shift, and go to state 33
+    VAR   shift, and go to state 34
+    '('   shift, and go to state 35
+
+    varcont  go to state 88
+
+
+State 69
+
+   25 varcont: varcont '*' . varcont
+
+    RAND  shift, and go to state 32
+    RAIO  shift, and go to state 33
+    VAR   shift, and go to state 34
+    '('   shift, and go to state 35
+
+    varcont  go to state 89
+
+
+State 70
+
+   27 varcont: varcont '/' . varcont
+
+    RAND  shift, and go to state 32
+    RAIO  shift, and go to state 33
+    VAR   shift, and go to state 34
+    '('   shift, and go to state 35
+
+    varcont  go to state 90
+
+
+State 71
+
+   20 var: VAR '=' varcont ';' .
+
+    $default  reduce using rule 20 (var)
+
+
+State 72
+
+   43 coordenada: COORDENADA .
+
+    $default  reduce using rule 43 (coordenada)
+
+
+State 73
+
+   30 linhas: LINHAS coordenada . coordenada multiplas color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 91
+    opcao       go to state 74
+
+
+State 74
+
+   42 coordenada: opcao . ',' opcao
+
+    ','  shift, and go to state 92
+
+
+State 75
+
+   40 ponto: PONTO coordenada . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 93
+    opcao  go to state 21
+
+
+State 76
+
+   39 linha: LINHA coordenada . coordenada color ';'
+
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 94
+    opcao       go to state 74
+
+
+State 77
+
+   33 retangulo: RETANGULO coordenada . coordenada color ';'
+   34          | RETANGULO coordenada . dimensao color ';'
+
+    DIMENSAO    shift, and go to state 14
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 95
+    dimensao    go to state 96
+    opcao       go to state 97
+
+
+State 78
+
+   35 retfill: RETFILL coordenada . dimensao color ';'
+   36        | RETFILL coordenada . coordenada color ';'
+
+    DIMENSAO    shift, and go to state 14
+    COORDENADA  shift, and go to state 72
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    coordenada  go to state 98
+    dimensao    go to state 99
+    opcao       go to state 97
+
+
+State 79
+
+   38 circun: CIRCUN coordenada . opcao color ';'
+
+    RAIO  shift, and go to state 15
+    VAR   shift, and go to state 16
+
+    opcao  go to state 100
+
+
+State 80
+
+   37 circunf: CIRCUNF coordenada . opcao color ';'
+
+    RAIO  shift, and go to state 15
+    VAR   shift, and go to state 16
+
+    opcao  go to state 101
+
+
+State 81
+
+   57 guardar: GUARDAR '"' . FILENAME '"' ';'
+
+    FILENAME  shift, and go to state 102
+
+
+State 82
+
+   54 ciclo: PARA VAR . EM '[' RAIO '.' '.' RAIO ']' s FIM PARA ';'
+
+    EM  shift, and go to state 103
+
+
+State 83
+
+   51 funcao: FUNCAO '(' . parametros ')'
+
+    $default  reduce using rule 53 (parametros)
+
+    parametros  go to state 104
+
+
+State 84
+
+   55 abrir: ABRIR '"' FILENAME '"' ';' .
+
+    $default  reduce using rule 55 (abrir)
+
+
+State 85
+
+   44 color: opcao ':' opcao ':' . opcao
+
+    RAIO  shift, and go to state 15
+    VAR   shift, and go to state 16
+
+    opcao  go to state 105
+
+
+State 86
+
+   26 varcont: '(' varcont ')' .
+
+    $default  reduce using rule 26 (varcont)
+
+
+State 87
+
+   23 varcont: varcont . '+' varcont
+   23        | varcont '+' varcont .
+   24        | varcont . '-' varcont
+   25        | varcont . '*' varcont
+   27        | varcont . '/' varcont
+
+    '*'  shift, and go to state 69
+    '/'  shift, and go to state 70
+
+    $default  reduce using rule 23 (varcont)
+
+
+State 88
+
+   23 varcont: varcont . '+' varcont
+   24        | varcont . '-' varcont
+   24        | varcont '-' varcont .
+   25        | varcont . '*' varcont
+   27        | varcont . '/' varcont
+
+    '*'  shift, and go to state 69
+    '/'  shift, and go to state 70
+
+    $default  reduce using rule 24 (varcont)
+
+
+State 89
+
+   23 varcont: varcont . '+' varcont
+   24        | varcont . '-' varcont
+   25        | varcont . '*' varcont
+   25        | varcont '*' varcont .
+   27        | varcont . '/' varcont
+
+    $default  reduce using rule 25 (varcont)
+
+
+State 90
+
+   23 varcont: varcont . '+' varcont
+   24        | varcont . '-' varcont
+   25        | varcont . '*' varcont
+   27        | varcont . '/' varcont
+   27        | varcont '/' varcont .
+
+    $default  reduce using rule 27 (varcont)
+
+
+State 91
+
+   30 linhas: LINHAS coordenada coordenada . multiplas color ';'
+
+    $default  reduce using rule 32 (multiplas)
+
+    multiplas  go to state 106
+
+
+State 92
+
+   42 coordenada: opcao ',' . opcao
+
+    RAIO  shift, and go to state 15
+    VAR   shift, and go to state 16
+
+    opcao  go to state 107
+
+
+State 93
+
+   40 ponto: PONTO coordenada color . ';'
+
+    ';'  shift, and go to state 108
+
+
+State 94
+
+   39 linha: LINHA coordenada coordenada . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 109
+    opcao  go to state 21
+
+
+State 95
+
+   33 retangulo: RETANGULO coordenada coordenada . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 110
+    opcao  go to state 21
+
+
+State 96
+
+   34 retangulo: RETANGULO coordenada dimensao . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 111
+    opcao  go to state 21
+
+
+State 97
+
+   42 coordenada: opcao . ',' opcao
+   48 dimensao: opcao . 'x' opcao
+
+    ','  shift, and go to state 92
+    'x'  shift, and go to state 29
+
+
+State 98
+
+   36 retfill: RETFILL coordenada coordenada . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 112
+    opcao  go to state 21
+
+
+State 99
+
+   35 retfill: RETFILL coordenada dimensao . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 113
+    opcao  go to state 21
+
+
+State 100
+
+   38 circun: CIRCUN coordenada opcao . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 114
+    opcao  go to state 21
+
+
+State 101
+
+   37 circunf: CIRCUNF coordenada opcao . color ';'
+
+    COLOR  shift, and go to state 19
+    RAIO   shift, and go to state 15
+    VAR    shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    color  go to state 115
+    opcao  go to state 21
+
+
+State 102
+
+   57 guardar: GUARDAR '"' FILENAME . '"' ';'
+
+    '"'  shift, and go to state 116
+
+
+State 103
+
+   54 ciclo: PARA VAR EM . '[' RAIO '.' '.' RAIO ']' s FIM PARA ';'
+
+    '['  shift, and go to state 117
+
+
+State 104
+
+   51 funcao: FUNCAO '(' parametros . ')'
+   52 parametros: parametros . COISAS
+
+    COISAS  shift, and go to state 118
+    ')'     shift, and go to state 119
+
+
+State 105
+
+   44 color: opcao ':' opcao ':' opcao .
+
+    $default  reduce using rule 44 (color)
+
+
+State 106
+
+   30 linhas: LINHAS coordenada coordenada multiplas . color ';'
+   31 multiplas: multiplas . coordenada
+
+    COORDENADA  shift, and go to state 72
+    COLOR       shift, and go to state 19
+    RAIO        shift, and go to state 15
+    VAR         shift, and go to state 16
+
+    $default  reduce using rule 46 (color)
+
+    coordenada  go to state 120
+    color       go to state 121
+    opcao       go to state 122
+
+
+State 107
+
+   42 coordenada: opcao ',' opcao .
+
+    $default  reduce using rule 42 (coordenada)
+
+
+State 108
+
+   40 ponto: PONTO coordenada color ';' .
+
+    $default  reduce using rule 40 (ponto)
+
+
+State 109
+
+   39 linha: LINHA coordenada coordenada color . ';'
+
+    ';'  shift, and go to state 123
+
+
+State 110
+
+   33 retangulo: RETANGULO coordenada coordenada color . ';'
+
+    ';'  shift, and go to state 124
+
+
+State 111
+
+   34 retangulo: RETANGULO coordenada dimensao color . ';'
+
+    ';'  shift, and go to state 125
+
+
+State 112
+
+   36 retfill: RETFILL coordenada coordenada color . ';'
+
+    ';'  shift, and go to state 126
+
+
+State 113
+
+   35 retfill: RETFILL coordenada dimensao color . ';'
+
+    ';'  shift, and go to state 127
+
+
+State 114
+
+   38 circun: CIRCUN coordenada opcao color . ';'
+
+    ';'  shift, and go to state 128
+
+
+State 115
+
+   37 circunf: CIRCUNF coordenada opcao color . ';'
+
+    ';'  shift, and go to state 129
+
+
+State 116
+
+   57 guardar: GUARDAR '"' FILENAME '"' . ';'
+
+    ';'  shift, and go to state 130
+
+
+State 117
+
+   54 ciclo: PARA VAR EM '[' . RAIO '.' '.' RAIO ']' s FIM PARA ';'
+
+    RAIO  shift, and go to state 131
+
+
+State 118
+
+   52 parametros: parametros COISAS .
+
+    $default  reduce using rule 52 (parametros)
+
+
+State 119
+
+   51 funcao: FUNCAO '(' parametros ')' .
+
+    $default  reduce using rule 51 (funcao)
+
+
+State 120
+
+   31 multiplas: multiplas coordenada .
+
+    $default  reduce using rule 31 (multiplas)
+
+
+State 121
+
+   30 linhas: LINHAS coordenada coordenada multiplas color . ';'
+
+    ';'  shift, and go to state 132
+
+
+State 122
+
+   42 coordenada: opcao . ',' opcao
+   44 color: opcao . ':' opcao ':' opcao
+
+    ','  shift, and go to state 92
+    ':'  shift, and go to state 31
+
+
+State 123
+
+   39 linha: LINHA coordenada coordenada color ';' .
+
+    $default  reduce using rule 39 (linha)
+
+
+State 124
+
+   33 retangulo: RETANGULO coordenada coordenada color ';' .
+
+    $default  reduce using rule 33 (retangulo)
+
+
+State 125
+
+   34 retangulo: RETANGULO coordenada dimensao color ';' .
+
+    $default  reduce using rule 34 (retangulo)
+
+
+State 126
+
+   36 retfill: RETFILL coordenada coordenada color ';' .
+
+    $default  reduce using rule 36 (retfill)
+
+
+State 127
+
+   35 retfill: RETFILL coordenada dimensao color ';' .
+
+    $default  reduce using rule 35 (retfill)
+
+
+State 128
+
+   38 circun: CIRCUN coordenada opcao color ';' .
+
+    $default  reduce using rule 38 (circun)
+
+
+State 129
+
+   37 circunf: CIRCUNF coordenada opcao color ';' .
+
+    $default  reduce using rule 37 (circunf)
+
+
+State 130
+
+   57 guardar: GUARDAR '"' FILENAME '"' ';' .
+
+    $default  reduce using rule 57 (guardar)
+
+
+State 131
+
+   54 ciclo: PARA VAR EM '[' RAIO . '.' '.' RAIO ']' s FIM PARA ';'
+
+    '.'  shift, and go to state 133
+
+
+State 132
+
+   30 linhas: LINHAS coordenada coordenada multiplas color ';' .
+
+    $default  reduce using rule 30 (linhas)
+
+
+State 133
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' . '.' RAIO ']' s FIM PARA ';'
+
+    '.'  shift, and go to state 134
+
+
+State 134
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' . RAIO ']' s FIM PARA ';'
+
+    RAIO  shift, and go to state 135
+
+
+State 135
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO . ']' s FIM PARA ';'
+
+    ']'  shift, and go to state 136
+
+
+State 136
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO ']' . s FIM PARA ';'
+
+    $default  reduce using rule 19 (s)
+
+    s  go to state 137
+
+
+State 137
+
+    7 s: s . cor
+    8  | s . linhas
+    9  | s . ponto
+   10  | s . linha
+   11  | s . retangulo
+   12  | s . circunf
+   13  | s . circun
+   14  | s . retfill
+   15  | s . error
+   16  | s . var
+   17  | s . ciclo
+   18  | s . funcao
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO ']' s . FIM PARA ';'
+
+    error      shift, and go to state 37
+    LINHAS     shift, and go to state 38
+    PONTO      shift, and go to state 39
+    LINHA      shift, and go to state 40
+    RETANGULO  shift, and go to state 41
+    RETFILL    shift, and go to state 42
+    CIRCUN     shift, and go to state 43
+    CIRCUNF    shift, and go to state 44
+    FIM        shift, and go to state 138
+    COR        shift, and go to state 4
+    PARA       shift, and go to state 46
+    FUNCAO     shift, and go to state 47
+    VAR        shift, and go to state 5
+
+    var        go to state 48
+    linhas     go to state 49
+    retangulo  go to state 50
+    retfill    go to state 51
+    circunf    go to state 52
+    circun     go to state 53
+    linha      go to state 54
+    ponto      go to state 55
+    cor        go to state 56
+    funcao     go to state 57
+    ciclo      go to state 58
+
+
+State 138
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO ']' s FIM . PARA ';'
+
+    PARA  shift, and go to state 139
+
+
+State 139
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO ']' s FIM PARA . ';'
+
+    ';'  shift, and go to state 140
+
+
+State 140
+
+   54 ciclo: PARA VAR EM '[' RAIO '.' '.' RAIO ']' s FIM PARA ';' .
+
+    $default  reduce using rule 54 (ciclo)

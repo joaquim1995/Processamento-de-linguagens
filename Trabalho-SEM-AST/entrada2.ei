@@ -1,0 +1,3 @@
+COR 255:0:0;
+NOVA 20x60;
+GUARDAR "imagem.pnm";

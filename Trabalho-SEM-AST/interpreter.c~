@@ -1,0 +1,92 @@
+
+
+#include "vc.h"
+#include "gram.h"
+#include <stdio.h>
+
+extern Lista listavar;
+//EXECUTADORES
+
+
+
+RGB executar_cor(nodeType *p) {
+	if (!p) printf("Serious error");
+	switch(p->type) {
+		case typeCor: return    p->Cor.cor;	
+		}
+}
+
+Coordenadas executar_coordenada(nodeType *p) {
+	if (!p) printf("Serious error");
+	switch(p->type) {
+		case typeCoordenada: return    p->Coordenada.coordenada;	
+		}
+}
+
+Coordenadas executar_dimensao(nodeType *p) {
+	if (!p) printf("Serious error");
+	switch(p->type) {
+		case typeDimensao: return    p->Dimensao.dimensao;	
+		}
+}
+
+char * executar_varid(nodeType *p) {
+	if (!p) return NULL;
+	switch(p->type) {
+		case typeIdVar: return    p->idVar.idvar;	
+		}
+}
+
+
+ListaINT  executar_list(nodeType *p) {
+	if (!p) return NULL;
+ 	switch(p->type) 
+ 	{
+	case typeOperator : 
+	{ 
+		if (p->operator.nops == 2) 
+		{
+			ListaINT lista= executar_list(p->operator.op[0]);
+			int valor_expr = executar(p->operator.op[1]); 
+		        return inserir(lista, valor_expr); 
+		} 
+			
+		else return NULL;
+	}
+							
+ 	}
+}
+
+int executar(nodeType *p) 
+{
+	if (!p) return 0;
+	switch(p->type) 
+	{
+		case typeIntVal:  return p->intVal.value; 
+		case typeIdVar: {int i= valor_variavel(listavar, p->idVar.idvar);
+                              	printf("-%d-",i); return i;}
+		case typeOperator:
+			switch(p->operator.oper) 
+			{
+			case '=':  {
+				 int  valor_expr =  executar(p->operator.op[1]);  
+		                 define_variavel(&listavar, executar_varid(p->operator.op[0]), valor_expr );  
+		                 return valor_expr; /* 0; */ 
+		                   }
+			case '+': return soma(executar_list(p->operator.op[0]));
+			case '*': return mult(executar_list(p->operator.op[0]));
+			case '-': return subtrai(executar_list(p->operator.op[0]));
+			case '/': return divide(executar_list(p->operator.op[0]));
+			case PONTO: return 0;
+			case ':': return 0;
+			case ',': return 0;
+			case COR: return 0;
+			case LINHA: return 0;
+			case RETANGULO: return 0;
+			case RETFILL: return 0;
+			case CIRCUNF: return 0;
+		
+			}
+	}
+	return 0;
+}

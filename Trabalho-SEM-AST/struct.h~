@@ -1,0 +1,42 @@
+#include <stdint.h>
+#include <inttypes.h>
+#include <stdlib.h>
+
+#define MAX_DEEP 255
+
+//read a uint8_t ("blablabla %"SCNd8"blablabla",&var)
+
+typedef struct
+{
+unsigned int8_t x;
+// char divisor = ',';
+unsigned int8_t y;
+}coordenadas;
+
+typedef struct
+{
+unsigned int8_t coluna;
+// char divisor = 'x';
+unsigned int8_t linha;
+}area;
+
+typedef struct
+{
+unsigned int8_t r;
+// char divisor = ':';
+unsigned int8_t g;
+// char divisor = ':';
+unsigned int8_t b;
+}corPixel;
+
+typedef struct {
+     area a;
+     corPixel data;
+}*pnmImage;
+
+
+/*
+fscanf(arq, "%d %d %d", &m, &n, &max)
+
+fprintf(arq, "%d %d %d", m, n, max)
+*/
