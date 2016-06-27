@@ -1,0 +1,5 @@
+NOVA 10x10;
+PONTO 4,4;
+COR 255:0:0;
+PONTO 3,3;
+GUARDAR "teste.pnm";

@@ -1,0 +1,3 @@
+NOVA 10x10; 
+PARA var EM [ 0 .. 9 ] FAZER varz = (+ 0 var);  PONTO varz,var 255:0:0;  FIM PARA ;
+GUARDAR "teste.pnm";

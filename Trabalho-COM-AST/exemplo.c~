@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_NAME 256 /* tamanho maximo para nome de arquivo */
+#define MAX 1020 /* tamanho maximo para a matriz
+e, consequentemente, para a figura, em pixels)*/
+int main(){
+FILE *arq;
+char fname[MAX_NAME] ;
+char key[128] ;
+int i,j,n,m,max, M[MAX][MAX];
+printf("Digite o nome do arquivo PGM de entrada: ") ;
+scanf("%s", fname) ;
+arq = fopen(fname , "r") ;
+7
+if(arq == NULL) {
+printf("Erro na abertura do arquivo %s\n", fname) ;
+return 0 ;
+}
+/* le dados do cabecalho */
+fscanf(arq, "%s", key) ;
+if(strcmp(key,"P2") != 0) {
+printf("Arquivo nao e um PGM\n") ;
+fclose(arq) ;
+return 0 ;
+}
+fscanf(arq, "%d %d %d", &m, &n, &max) ;
+/* le os dados da imagem e armazena na matrix M */
+for(i=0; i<=n-1; i++)
+for(j=0;j<=m-1;j++)
+fscanf(arq, " %d ", &M[i][j]);
+fclose(arq) ;
+return 0;
+}

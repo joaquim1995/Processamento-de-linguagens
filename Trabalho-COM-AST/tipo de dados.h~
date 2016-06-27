@@ -1,0 +1,4 @@
+typedef struct  {
+	nodeType* cordU;
+	nodeType* cor;	
+}Ponto;

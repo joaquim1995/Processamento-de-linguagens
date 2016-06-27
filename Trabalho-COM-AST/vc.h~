@@ -1,0 +1,202 @@
+
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <malloc.h>
+
+
+
+//Listas Ligadas
+typedef struct nodoint {
+	unsigned int x;
+	unsigned int y;
+	struct nodoint *seguinte;
+} *Listaint, noI;
+
+ typedef struct nodoINT {
+        int valor;
+	struct nodoINT *seguinte;
+  } *ListaINT;
+
+
+typedef struct nodo {
+	char *nome;
+   	unsigned int valor;
+	struct nodo *seguinte;
+} *Lista;
+
+
+
+//__________________________________________________________________
+ 
+//Coisas para o bison
+typedef struct  {
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+	
+}RGB;
+
+typedef struct  {
+	unsigned int x;
+	unsigned int y;
+	
+}Coordenadas;
+
+//__________________________________________________________________________
+
+
+//IMAGEM
+typedef struct {
+	unsigned char *data;
+	unsigned int width, height;
+	unsigned int channels;			// Binário/Cinzentos=1; RGB=3
+	unsigned int levels;				// Binário=1; Cinzentos 
+	unsigned int bytesperline;		// width * channels
+}IVC;
+//___________________________________________________________________________
+
+//_____________________________________________________________________________________________________
+//STRUCT's DA ARVORE
+typedef enum {typeListaARV, typeCoordenada, typeCor,typeIntVal, typeListInt, typeIdVar, typeOperator } nodeEnum;
+
+typedef struct {
+	RGB cor; 
+} corNodeType;
+
+typedef struct {
+	Coordenadas coordenada; 
+} coordenadaNodeType;
+
+typedef struct {
+	unsigned int value; /* value of constant */
+} intValNodeType;
+
+typedef struct {
+	struct nodoARV* lista; /* value of constant */
+} listaARVNodeType;
+
+typedef struct {
+	struct nodoINT *front;
+	unsigned int last;
+} listIntNodeType;
+
+typedef struct {
+	char *idvar; 
+} idVarNodeType;
+
+typedef struct {
+	unsigned int oper; /* operator */
+	unsigned int nops; /* number of operands */
+	struct nodeTypeTag **op; /* operands */
+} operatorNodeType;
+
+typedef struct nodeTypeTag {
+	nodeEnum type; /* type of node */
+	union {
+		listaARVNodeType ListARV;
+		coordenadaNodeType Coordenada;
+		corNodeType Cor;
+		intValNodeType intVal;      /* integer constants   */
+		listIntNodeType listInt;      /* lista de inteiros   */
+		idVarNodeType  idVar;        /* vars identifiers */
+		operatorNodeType operator;       /* operators   */
+	};
+} nodeType;
+
+ typedef struct nodoARV {
+        nodeType *valor;
+	struct nodoARV *seguinte;
+  } *ListaARV;
+
+//_____________________________________________________________________________________________________
+
+
+// FUNÇÕES: ALOCAR E LIBERTAR UMA IMAGEM
+IVC *vc_image_news(unsigned int width, unsigned int height, unsigned int channels, unsigned int levels, RGB cor);
+IVC *vc_image_new(unsigned int width, unsigned int height, unsigned int channels, unsigned int levels);
+IVC *vc_image_free(IVC *image);
+
+// FUNÇÕES: LEITURA E ESCRITA DE IMAGENS (PBM, PGM E PPM)
+IVC *vc_read_image(char *filename);
+int vc_write_image(char *filename, IVC *image);
+IVC *vc_read_imageB(char *filename);
+int vc_write_imageB(char *filename, IVC *image);
+
+// FUNÇÕES : ALGORITMOS PARA DESENRASCAR
+int PosicaoDigitos(char* temp);
+void numeroProducao(int numero);
+void sujestaoComando(char* temp);
+int Filtrar(IVC *imagem, Coordenadas cord);
+int Filtra(IVC *imagem, unsigned int x , unsigned int y);
+int FiltrarD(IVC *imagem, Coordenadas cordU,Coordenadas cordD);
+//_____________________________________________________________________________________________________
+
+// FUNÇÕES : DESENHAR
+void PintaPonto(IVC *image, Coordenadas cord, RGB core);
+void PintPonto(IVC *image, unsigned int x , unsigned int y, RGB core);
+void PintaLinha(IVC *imagem,Coordenadas cordU, Coordenadas cordD, RGB core);
+void PintaCirculo(IVC *imagem,Coordenadas cordU, unsigned int radius,RGB core);
+void PintLinha(IVC *imagem,  unsigned int xU,  unsigned int yU,  unsigned int xD,  unsigned int yD, RGB core);
+void PintaRetangulo(IVC *imagem, unsigned int xU,  unsigned int yU,  unsigned int xD,  unsigned int yD, RGB core);
+void PintaXRetangulo(IVC *imagem, unsigned int xU,  unsigned int yU,  unsigned int xD,  unsigned int yD, RGB core);
+void PintRetangulo(IVC *imagem, unsigned int xU,  unsigned int yU,  unsigned int xD,  unsigned int yD, RGB core);
+//_____________________________________________________________________________________________________
+
+//FUNÇÕES : LISTAS
+Listaint inseri(Listaint l, unsigned int v, unsigned int m);
+void liber(Listaint l);
+void libert(Lista l);
+Listaint inicializa(Listaint l);
+
+int valor_variavel(Lista l, char *varid); // retorna  -1 se nao encontrar
+void define_variavel(Lista *l, char *varid, unsigned int v);
+
+ListaINT inserir(ListaINT l, unsigned int v);
+unsigned int soma(ListaINT l);
+unsigned int subtrai(ListaINT l);
+unsigned int divide(ListaINT l);
+unsigned int mult(ListaINT l);	
+void liberta(ListaINT l);
+
+ListaARV inserirNo(ListaARV l, nodeType*);
+void libertaNo(ListaARV l);
+
+
+void Aviso();
+//_____________________________________________________________________________________________________
+
+
+//ARVORE EXECUTAR
+int executar(nodeType *p);
+RGB executar_cor(nodeType *p);
+ListaARV executar_ListaARV(nodeType *p);
+Coordenadas executar_coordenada(nodeType *p);
+Coordenadas executar_dimensao(nodeType *p);
+Coordenadas executar_cords(nodeType *p); //para dois pontos
+uint8_t executar_cordC(nodeType *p); // para uma cor do RGB
+int executar_cord(nodeType *p);//para um ponto
+RGB executar_cordT(nodeType *p);
+
+//CALCULOS
+unsigned int divide(ListaINT l);
+unsigned int soma(ListaINT l);
+unsigned int subtrai(ListaINT l);
+unsigned int mult(ListaINT l);
+ListaINT inserir(ListaINT l, unsigned int v);
+
+//ARVORE 
+nodeType *coordenada(Coordenadas c);
+nodeType *dimensao(Coordenadas c);
+nodeType *listaARV(ListaARV l);
+nodeType *cor(RGB cor);
+nodeType *operator(unsigned int oper, unsigned int nops, ...);
+nodeType *idvar(char *);
+nodeType *intval(unsigned int value); 
+void freeNode(nodeType *p); 
+//_____________________________________________________________________________________________________
+
+
+

@@ -1,0 +1,4 @@
+NOVA 10x10;
+var = 3;
+PONTO var,3 0:127:0;
+GUARDAR "teste.pnm";
